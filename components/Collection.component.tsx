@@ -14,7 +14,7 @@ export const Collection: React.FC<CollectionProps> = ({
   );
 
   return (
-    <Card>
+    <Card className="hover:drop-shadow-2xl hover:cursor-pointer">
       <div className="inline-flex items-center justify-between space-x-8">
         <div className="text-xl font-bold text-stone-400">{name}</div>
         <button

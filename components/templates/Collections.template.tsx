@@ -6,6 +6,7 @@ import { Collection } from '../Collection.component';
 import { Modal } from '../Modal.component';
 import { Card } from '../cards/Card.component';
 import { NotificationModalLayout } from '../layouts/NotificationModal.layout';
+import { subscribeToCollection } from '../../lib/api/mutations/subscribe-to-collection.mutation';
 
 export const CollectionsTemplate: React.FC<CollectionsTemplateProps> = ({
   collections
@@ -17,6 +18,17 @@ export const CollectionsTemplate: React.FC<CollectionsTemplateProps> = ({
     setShowModal(true);
   };
   const onClose = () => {
+    setShowModal(false);
+  };
+  const onLogin = async (userEmail: string, accepts_terms: boolean) => {
+    console.log(userEmail, accepts_terms)
+    if (accepts_terms) {
+      await subscribeToCollection({
+        userEmail,
+        collectionId: selectedCollection
+      });
+    }
+    console.log("got here")
     setShowModal(false);
   };
   return (
@@ -33,8 +45,11 @@ export const CollectionsTemplate: React.FC<CollectionsTemplateProps> = ({
       <Modal show={showModal}>
         <Card>
           <NotificationModalLayout
-            collectionName={collections.find(c => c.id === selectedCollection).name}
+            collectionName={
+              collections.find(c => c.id === selectedCollection)?.name
+            }
             onClose={onClose}
+            onLogin={onLogin}
           />
         </Card>
       </Modal>
