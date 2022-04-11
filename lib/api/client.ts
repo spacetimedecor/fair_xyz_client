@@ -10,5 +10,4 @@ export const GraphQLClient = new ApolloClient({
     uri: 'http://localhost:3000/graphql' // Server URL (must be absolute)
   }),
   cache: new InMemoryCache(),
-  uri: endpoints[process.env.APP_ENV]
 });
